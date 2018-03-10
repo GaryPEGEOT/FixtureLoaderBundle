@@ -25,6 +25,16 @@ class MiaouCorpFixtureLoaderExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        $container->findDefinition('miaoucorp.fixture_loader')->setArgument(2, $config['directory']);
+        $def = $container->findDefinition('miaoucorp.fixture_loader');
+
+        if (\method_exists($def, 'setArgument')) {
+            $def->setArgument(2, $config['directory']);
+
+            return;
+        }
+
+        $args = $def->getArguments();
+        $args[2] = $config['directory'];
+        $def->setArguments($args);
     }
 }
