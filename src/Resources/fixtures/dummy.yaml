@@ -1,0 +1,6 @@
+stdClass:
+  fixture_1:
+    foo: bar
+
+  fixture_2:
+    baz: baz

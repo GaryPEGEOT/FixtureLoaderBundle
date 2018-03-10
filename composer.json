@@ -1,0 +1,40 @@
+{
+    "name": "miaou-corp/fixture-loader-bundle",
+    "description": "Manage Nelmio Alice fixtures with Doctrine.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gary PEGEOT",
+            "email": "garypegeot@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "nelmio/alice": "^3.2",
+        "symfony/finder": "~3.0|~4.0"
+    },
+    "require-dev": {
+        "doctrine/orm": "^2.4",
+        "symfony/config": "~3.0|~4.0",
+        "symfony/dependency-injection": "~3.0|~4.0",
+        "symfony/http-kernel": "~3.0|~4.0",
+        "symfony/phpunit-bridge": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MiaouCorp\\Bundle\\FixtureLoaderBundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MiaouCorp\\Bundle\\FixtureLoaderBundle\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    }
+}
