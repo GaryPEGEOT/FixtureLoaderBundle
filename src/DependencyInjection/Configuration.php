@@ -21,7 +21,9 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('miaoucorp_fixture_loader');
         $rootNode->children()
             ->scalarNode('directory')
-                ->cannotBeEmpty()->end()
+                ->cannotBeEmpty()
+                ->defaultValue('%kernel.project_dir%/tests/Resources/fixtures')
+                ->end()
             ->end();
 
         // Here you should define the parameters that are allowed to
