@@ -1,7 +1,12 @@
 <?php
-/**
- * This file is part of the FixtureLoaderBundle package.
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the MiaouCorpFixtureLoaderBundle project.
+ *
  * (c) Gary PEGEOT <garypegeot@gmail.com>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -16,7 +21,7 @@ use Nelmio\Alice\Throwable\LoadingThrowable;
 use Symfony\Component\Finder\Finder;
 
 /**
- * Class MiaouCorp\Bundle\FixtureLoaderBundle\FixtureLoader
+ * Class MiaouCorp\Bundle\FixtureLoaderBundle\FixtureLoader.
  *
  * @author Gary PEGEOT <garypegeot@gmail.com>
  */
@@ -53,10 +58,11 @@ class FixtureLoader
 
     /**
      * @param string $filename Filename to load
-     * @param array  $keep     Fixture(s) name to keep in memory for later use.
+     * @param array  $keep     fixture(s) name to keep in memory for later use
      *
-     * @return object[] The generated fixtures matching `$keep` list.
      * @throws \InvalidArgumentException
+     *
+     * @return object[] the generated fixtures matching `$keep` list
      */
     public function loadFile(string $filename, array $keep = []): array
     {
@@ -73,7 +79,7 @@ class FixtureLoader
         foreach ($files as $file) {
             try {
                 foreach ($this->loader->loadFile($file->getRealPath())->getObjects() as $id => $object) {
-                    if (\in_array($id, $keep)) {
+                    if (\in_array($id, $keep, true)) {
                         $fixtures[$id] = $object;
                     }
 
@@ -84,7 +90,6 @@ class FixtureLoader
                 }
                 $this->em->flush();
                 $this->em->clear();
-
             } catch (LoadingThrowable | \LogicException $e) {
                 throw new \InvalidArgumentException("Fixture file \"$file\" isn't loadable: {$e->getMessage()}", $e->getCode(), $e);
             }
@@ -94,11 +99,11 @@ class FixtureLoader
     }
 
     /**
-     * Erase and recreate database schema. (All data will be lost!)
+     * Erase and recreate database schema. (All data will be lost!).
      *
      * @throws \InvalidArgumentException
      */
-    public function buildSchema()
+    public function buildSchema(): void
     {
         $meta = $this->em->getMetadataFactory()->getAllMetadata();
 
@@ -111,6 +116,5 @@ class FixtureLoader
                 throw new \InvalidArgumentException("Schema is not buildable: {$e->getMessage()}", $e->getCode(), $e);
             }
         }
-
     }
 }
