@@ -85,7 +85,7 @@ class FixtureLoader
                 $this->em->flush();
                 $this->em->clear();
 
-            } catch (LoadingThrowable $e) {
+            } catch (LoadingThrowable | \LogicException $e) {
                 throw new \InvalidArgumentException("Fixture file \"$file\" isn't loadable: {$e->getMessage()}", $e->getCode(), $e);
             }
         }
