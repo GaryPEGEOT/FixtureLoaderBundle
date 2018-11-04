@@ -1,7 +1,12 @@
 <?php
-/**
- * This file is part of the FixtureLoaderBundle package.
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the MiaouCorpFixtureLoaderBundle project.
+ *
  * (c) Gary PEGEOT <garypegeot@gmail.com>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -12,11 +17,14 @@ use MiaouCorp\Bundle\FixtureLoaderBundle\DependencyInjection\MiaouCorpFixtureLoa
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * @internal
+ */
 class MiaouCorpFixtureLoaderExtensionTest extends TestCase
 {
-    public function testLoad()
+    public function testLoad(): void
     {
-        $dir = dirname(__FILE__);
+        $dir = __DIR__;
         $container = new ContainerBuilder();
         $ext = new MiaouCorpFixtureLoaderExtension();
 
@@ -25,6 +33,6 @@ class MiaouCorpFixtureLoaderExtensionTest extends TestCase
         $args = $container->findDefinition('miaoucorp.fixture_loader')->getArguments();
 
         $this->assertCount(3, $args);
-        $this->assertEquals($dir, $args[2]);
+        $this->assertSame($dir, $args[2]);
     }
 }
